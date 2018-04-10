@@ -1,5 +1,5 @@
 const UserService = require('../services/user.service'),
-  jwtConfig = require('../config/jwt'),
+  jwtConfig = require('../configs/jwt'),
   jwt = require('jsonwebtoken'),
   _pick = require('lodash/pick'),
   Joi = require('joi'),
@@ -34,7 +34,10 @@ class AuthController {
       if (!user) return res.status(404).json({error: 'User is not exists.'});
 
       if (bcrypt.compareSync(password, user.password)) {
-        return res.json({token: AuthController._generateJWTToken(user)});
+        return res.json({
+          token: AuthController._generateJWTToken(user),
+          user: _pick(user, ['username', 'gender', 'email'])
+        });
       } else return res.status(404).json({error: 'Password is wrong.'});
 
     } catch (error) {

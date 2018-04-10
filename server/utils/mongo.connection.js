@@ -1,7 +1,7 @@
 //Import the mongoose module
 const mongoose = require('mongoose'),
   Promise = require('bluebird'),
-  config = require('../config/db');
+  config = require('../configs/db');
 
 
 let connectToMongo = () => {

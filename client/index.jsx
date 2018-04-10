@@ -2,12 +2,15 @@ import React from 'react';
 import {render} from 'react-dom';
 import Routes from './routes.js';
 import {BrowserRouter} from 'react-router-dom'
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers/index';
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const store = createStore(reducers, compose(
+  applyMiddleware(thunkMiddleware),
+  window.devToolsExtension && window.devToolsExtension()
+));
 
 render(
   <Provider store={store}>
