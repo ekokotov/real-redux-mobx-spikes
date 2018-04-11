@@ -1,33 +1,36 @@
 import AuthService from '../services/authService';
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED} from '../actions/types';
+import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT} from '../actions/types';
 
 const initialState = {
-  user: null,
-  token: null,
-  loading: false
+  currentUser: null,
+  inProgress: false
 };
 
 function reduce(state = initialState, action = {}) {
-  //debugger;
   switch (action.type) {
     case LOGIN_START:
       return Object.assign({}, {
-        loading: true
+        inProgress: true
       });
 
     case LOGIN_SUCCESS:
       AuthService.saveToken(action.payload.token);
       return Object.assign({}, {
-        loading: false,
-        user: action.payload.user,
-        token: action.payload.token
+        inProgress: false,
+        currentUser: action.payload.user,
       });
 
     case LOGIN_FAILED:
       return Object.assign({}, {
-        loading: false,
-        user: null,
-        token: null,
+        inProgress: false,
+        currentUser: null,
+      });
+
+    case LOGOUT:
+      AuthService.removeToken();
+      return Object.assign({}, {
+        inProgress: false,
+        currentUser: null,
       });
 
     default:
