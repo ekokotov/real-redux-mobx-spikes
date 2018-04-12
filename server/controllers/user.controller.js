@@ -5,10 +5,12 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 class UserController {
   async getAll(req, res) {
+    let limit = parseInt(req.query.count, 10) || 10;
     try {
-      const users = await UserService.getAll();
+      const users = await UserService.getAll(limit);
       return res.json(users);
     } catch (error) {
+      console.log(error);
       return res.status(500).json({error: 'Internal Error'});
     }
   }
@@ -19,7 +21,7 @@ class UserController {
       const user = await UserService.getOne({_id: id}, false);
       return res.json(user);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return res.status(500).json({error: 'Internal Error'});
     }
   }
@@ -36,6 +38,7 @@ class UserController {
     try {
       return res.json(await UserService.addNew(newUser));
     } catch (error) {
+      console.log(error);
       return res.status(500).json({error: 'Internal Error'});
     }
   }

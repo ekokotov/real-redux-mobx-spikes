@@ -5,8 +5,8 @@ class UserService {
     this.User = UserModel;
   }
 
-  getAll() {
-    return this.User.find({}).lean(true).select('username gender email');
+  getAll(limit) {
+    return this.User.find({}).limit(limit).lean(true).select('username gender email');
   }
 
   getOne(options, withPassword = true) {

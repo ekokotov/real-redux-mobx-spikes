@@ -1,36 +1,83 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {fetchUsers} from '../actions/users';
+import {fetchUsers, setFetchingLimit} from '../actions/users';
+import LimitInput from "./limitInput";
 
-class UserList extends PureComponent {
+class UserList extends Component {
+  constructor() {
+    super();
+    this.selectLimit = this.selectLimit.bind(this);
+  }
+
+  selectLimit(newLimit) {
+    this.props.setFetchingLimit(newLimit);
+    this.getUsers(this.props.limit);
+  }
+
+  state = {
+    users: []
+  };
+
   componentDidMount() {
-    this.props.fetchUsers(10);
+    this.getUsers(this.props.limit);
+  }
+
+  getUsers(limit) {
+    //this.setState()
+    return this.props.fetchUsers(limit)
+      .then(users => this.setState({users}))
   }
 
   render() {
-    let {users} = this.props;
+    let {currentUser, isLoading} = this.props;
     return (
       <Fragment>
-        <h1>Users:</h1>
-        {users && users.length &&
-        <div className="list-group">
-          {users.map(user =>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <h1>Users: <span className={isLoading ? '' : 'invisible'}>
+                  <i className="fas fa-sync fa-spin"/>
+                </span></h1>
+            </div>
+
+            <div className="col">
+              <LimitInput limit={this.props.limit} values={[1, 5, 10, 25, 50]} select={this.selectLimit}/>
+            </div>
+          </div>
+        </div>
+
+        {this.state.users.length && <div className="list-group">
+
+          {this.state.users.map(user =>
             <a href="#" key={user.email}
                className="list-group-item list-group-item-action flex-column align-items-start">
               <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">{user.username}</h5>
                 <small style={{fontSize: '25px'}}><i className={`fas fa-${user.gender}`}/></small>
               </div>
+              {currentUser.email === user.email && <span className="badge badge-info">You</span>}
+              &nbsp;
               <small>{user.email}</small>
-            </a>)}
+            </a>)
+          }
+
         </div>}
       </Fragment>
     )
   }
 }
 
+UserList.propTypes = {
+  limit: PropTypes.number.isRequired,
+  currentUser: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
+
 export default connect(state => {
   return {
-    users: state.userList.users
+    limit: state.userList.limit,
+    isLoading: state.userList.inProgress,
+    currentUser: state.auth.currentUser,
   }
-}, {fetchUsers})(UserList);
+}, {fetchUsers, setFetchingLimit})(UserList);

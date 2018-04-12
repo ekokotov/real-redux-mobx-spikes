@@ -10,30 +10,34 @@ function reduce(state = initialState, action = {}) {
   switch (action.type) {
     case SIGNUP_START:
     case LOGIN_START:
-      return Object.assign({}, {
+      return {
+        ...state,
         inProgress: true
-      });
+      };
 
     case LOGIN_SUCCESS:
       AuthService.saveToken(action.payload.token);
-      return Object.assign({}, {
+      return {
+        ...state,
         inProgress: false,
         currentUser: action.payload.user,
-      });
+      };
 
     case SIGNUP_FAILED:
     case LOGIN_FAILED:
-      return Object.assign({}, {
+      return {
+        ...state,
         inProgress: false,
-        currentUser: null,
-      });
+        currentUser: null
+      };
 
     case LOGOUT:
       AuthService.removeToken();
-      return Object.assign({}, {
+      return {
+        ...state,
         inProgress: false,
         currentUser: null,
-      });
+      };
 
     default:
       return state
