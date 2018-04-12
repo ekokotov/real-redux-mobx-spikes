@@ -21,13 +21,12 @@ app.listen(8081, () => {
 });
 
 //validation error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   if (err.isBoom) {
-    let errors = err.data.map(item => {
-      return {
-        message: item.message,
-        field: item.path.split('.').pop()
-      }
+    let errors = {};
+    err.data.forEach(item => {
+      let inputName = item.path.split('.').pop();
+      if (inputName) errors[inputName] = item.message;
     });
     return res.status(err.output.statusCode).json(errors);
   }

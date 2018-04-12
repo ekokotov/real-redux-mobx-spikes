@@ -14,11 +14,17 @@ class AuthService {
   signup(userData) {
     return axious.post(http.SIGNUP, userData)
       .then(res => res.data)
+      .catch(res => {
+        throw res.response.data
+      })
   }
 
   login(userData) {
     return axious.post(http.LOGIN, userData)
       .then(res => res.data)
+      .catch(res => {
+        throw res.response.data
+      })
   }
 
   saveToken(token) {

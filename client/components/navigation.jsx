@@ -14,19 +14,23 @@ class Nav extends PureComponent {
   }
 
   render() {
+    let {user} = this.props;
     return (
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-          <ul className="navbar-nav">
-            <li className="nav-item active">
-              <a className="nav-link" href="#" onClick={this.logout}>Logout<span
-                className="sr-only">(current)</span></a>
-            </li>
-          </ul>
-        </div>
+      <nav className="navbar navbar-dark bg-primary">
+        {user && <span className="navbar-brand"><i
+          className={`fas fa-${user.gender}`}/> &nbsp; {this.props.user.username}</span>}
+        <ul className="navbar-nav my-2 my-lg-0">
+          <li className="nav-item active">
+            <button className="btn btn-warning my-2 my-sm-0" onClick={this.logout}><i
+              className="fas fa-sign-out-alt"/> &nbsp; Logout
+            </button>
+          </li>
+        </ul>
       </nav>
     )
   }
 }
 
-export default connect(null, {logout})(Nav);
+export default connect(state => {
+  return {user: state.auth.currentUser}
+}, {logout})(Nav);

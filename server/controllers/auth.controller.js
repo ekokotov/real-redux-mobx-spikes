@@ -50,14 +50,14 @@ class AuthController {
       user, token;
     try {
       user = await UserService.addNew({email, password, username, gender});
+      token = AuthController._generateJWTToken(user.toJSON());
+      return res.status(201).json({user, token});
     } catch (error) {
       if (error.code === 11000) {
         // Duplicate username
         return res.status(500).send({error: 'User already exist!'});
       } else return res.status(500).json({error: error.message});
     }
-    token = AuthController._generateJWTToken(user.toJSON());
-    return res.status(201).json({user, token});
   }
 
   _signUpValidation() {
@@ -65,7 +65,7 @@ class AuthController {
       body: {
         username: Joi.string().alphanum().min(3).max(30).required(),
         password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
-        gender: ['Male', 'Female'],
+        gender: Joi.string().valid('male', 'female'),
         email: Joi.string().email()
       }
     }

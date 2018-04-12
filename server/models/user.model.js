@@ -23,7 +23,7 @@ const userSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ['Male', 'Female']
+    enum: ['male', 'female'],
   },
 }, {timestamps: {createdAt: "created_at", updatedAt: "updated_at"}});
 

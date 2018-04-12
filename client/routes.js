@@ -11,11 +11,12 @@ class Routes extends Component {
     super();
     AuthService.init();
   }
+
   render() {
     return (
       <Switch>
         <Route path="/login" component={LoginPage}/>
-        <Route path="/sign" component={SignUpPage}/>
+        <Route path="/signup" component={SignUpPage}/>
         <PrivateRoute exact path="/" component={Dashboard}/>
       </Switch>
     )
