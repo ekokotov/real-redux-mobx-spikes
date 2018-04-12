@@ -37,7 +37,7 @@ class AuthService {
   }
 
   removeToken() {
-    return localStorage.removeItem(AUTH_TOKEN_PATH);
+    localStorage.removeItem(AUTH_TOKEN_PATH);
     delete axios.defaults.headers.common.authorization;
   }
 
