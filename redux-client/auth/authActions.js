@@ -1,5 +1,5 @@
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_START, SIGNUP_FAILED} from '../actions/types';
-import AuthService from "../services/authService";
+import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_START, SIGNUP_FAILED} from './authTypes';
+import AuthService from "./authService";
 
 export function login(user) {
   return dispatch => {

@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {fetchUsers, setFetchingLimit} from '../actions/users';
-import LimitInput from "./limitInput";
+import {fetchUsers, setFetchingLimit} from './userListActions';
+import LimitInput from "../../common/limitInput";
 
 class UserList extends Component {
   constructor() {
@@ -12,7 +12,7 @@ class UserList extends Component {
 
   selectLimit(newLimit) {
     this.props.setFetchingLimit(newLimit);
-    this.getUsers(this.props.limit);
+    this.getUsers(newLimit);
   }
 
   state = {
@@ -24,7 +24,6 @@ class UserList extends Component {
   }
 
   getUsers(limit) {
-    //this.setState()
     return this.props.fetchUsers(limit)
       .then(users => this.setState({users}))
   }

@@ -1,6 +1,6 @@
 import React, {PureComponent, Fragment} from "react";
-import UserList from "../components/userList";
-import Nav from '../components/navigation';
+import UserList from "./userList/userList";
+import Nav from '../common/navigation';
 import {Route} from 'react-router-dom';
 
 class Dashboard extends PureComponent {

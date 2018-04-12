@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {logout} from '../actions/auth';
+import {logout} from '../auth/authActions';
 import {connect} from 'react-redux';
 
 class Nav extends PureComponent {

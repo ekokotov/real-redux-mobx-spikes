@@ -8,7 +8,7 @@ const path = require('path'),
 process.env.NODE_ENV = process.env.NODE_ENV || process.env.ENV;
 
 const PATH = {
-  SRC: path.resolve(__dirname, 'client'),
+  SRC: path.resolve(__dirname, 'redux-client'),
   DIST: path.resolve(__dirname, '.tmp'),
   BABEL_CACHE: path.resolve(__dirname, '.tmp/.cache')
 };
@@ -99,7 +99,7 @@ if (isPROD) {
       compress: {
         unused: true,
         dead_code: true, // big one--strip code that will never execute
-        warnings: false, // good for prod apps so users can't peek behind curtain
+        warnings: false, // good for prod apps so userList can't peek behind curtain
         drop_debugger: true,
         conditionals: true,
         evaluate: true,

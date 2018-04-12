@@ -1,5 +1,5 @@
-import {FETCH_USERS_START, FETCH_USERS_FAILED, FETCH_USERS_SUCCESS, SET_FETCHING_USERS_LIMIT} from '../actions/types';
-import UserService from "../services/userService";
+import {FETCH_USERS_START, FETCH_USERS_FAILED, FETCH_USERS_SUCCESS, SET_FETCHING_USERS_LIMIT} from './userListTypes';
+import UserService from "./userListService";
 
 export function fetchUsers(count) {
   return dispatch => {

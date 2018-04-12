@@ -1,5 +1,5 @@
-import AuthService from '../services/authService';
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from '../actions/types';
+import AuthService from './authService';
+import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from './authTypes';
 
 const initialState = {
   currentUser: null,

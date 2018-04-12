@@ -2,10 +2,10 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {withRouter, Link} from 'react-router-dom'
-import {signup} from "../actions/auth";
+import {signup} from "./authActions";
 import _mapValues from 'lodash/mapValues';
-import Alert from '../components/alert';
-import FormInput from '../components/formInput';
+import Alert from '../common/alert';
+import FormInput from '../common/formInput';
 
 class SignUp extends PureComponent {
   constructor() {

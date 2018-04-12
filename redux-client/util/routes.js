@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import LoginPage from "./pages/login";
-import SignUpPage from "./pages/signup";
-import Dashboard from "./pages/dashboard";
+import LoginPage from "../auth/login";
+import SignUpPage from "../auth/signup";
+import Dashboard from "../dashboard/dashboard";
 import {Switch, Route} from 'react-router-dom';
-import PrivateRoute from "./components/privateRoute";
-import AuthService from './services/authService';
+import PrivateRoute from "../common/privateRoute";
+import AuthService from '../auth/authService';
 
 class Routes extends Component {
   constructor() {

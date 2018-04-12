@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {login} from '../actions/auth';
+import {login} from './authActions';
 import PropTypes from 'prop-types';
 import {withRouter, Link} from 'react-router-dom';
-import Alert from '../components/alert';
-import FormInput from '../components/formInput';
+import Alert from '../common/alert';
+import FormInput from '../common/formInput';
 
 class Login extends PureComponent {
   constructor() {
