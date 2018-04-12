@@ -15,7 +15,7 @@ const PATH = {
 
 const CONFIG = {
   entry: [
-    path.join(PATH.SRC, 'index.jsx')
+    path.join(PATH.SRC, 'index.js')
   ],
 
   output: {

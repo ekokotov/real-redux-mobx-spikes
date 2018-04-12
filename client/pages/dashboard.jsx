@@ -8,7 +8,9 @@ class Dashboard extends PureComponent {
     return (
       <Fragment>
         <Nav/>
-        <Route path="/" component={UserList}/>
+        <div className="container">
+          <Route path="/" component={UserList}/>
+        </div>
       </Fragment>
     )
   }
