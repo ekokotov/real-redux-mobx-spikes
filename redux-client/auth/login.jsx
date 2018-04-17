@@ -27,17 +27,18 @@ class Login extends PureComponent {
   render() {
     let {errors} = this.state;
     return (
-      <form className="container form-login" onSubmit={this.submit}>
-        <h2 className="form-login-heading">Please sign in</h2>
-        {errors && errors.error && <Alert message={errors.error} type="danger"/>}
-        <FormInput label="Email" type="email" link={input => this.formInputs.email = input}
-                   error={errors && errors.email} required={true}/>
-        <FormInput label="Password" type="password" link={input => this.formInputs.password = input}
-                   error={errors && errors.password} required={true}/>
-
-        <button className="btn btn-lg btn-primary btn-block"><i className="fas fa-sign-in-alt"/> Log in</button>
-        <Link to="/signup">No Account? Register Now!</Link>
-      </form>
+      <div className="d-flex h-100">
+        <form className="container col-lg-4 justify-content-center align-self-center" onSubmit={this.submit}>
+          <h2>Please sign in</h2>
+          {errors && errors.error && <Alert message={errors.error} type="danger"/>}
+          <FormInput label="Email" type="email" link={input => this.formInputs.email = input}
+                     error={errors && errors.email} required={true}/>
+          <FormInput label="Password" type="password" link={input => this.formInputs.password = input}
+                     error={errors && errors.password} required={true}/>
+          <button className="btn btn-lg btn-primary btn-block"><i className="fas fa-sign-in-alt"/> Log in</button>
+          <Link to="/signup">No Account? Register Now!</Link>
+        </form>
+      </div>
     )
   }
 }

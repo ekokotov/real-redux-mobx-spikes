@@ -17,6 +17,8 @@
     "jsonwebtoken": "^8.2.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
+    "mobx": "^4.2.0",
+    "mobx-react": "^5.0.0",
     "mongoose": "^5.0.13",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
@@ -24,6 +26,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
