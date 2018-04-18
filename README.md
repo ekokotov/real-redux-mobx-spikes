@@ -10,7 +10,7 @@ The main goal of this repo is to compare popular react state management approach
 ```
 npm i
 ```
-all projects share the same deps list (package.json) and single webpack config
+all projects share the same `npm` dependencies list and single webpack.config
 
 ### RUN and explore
 

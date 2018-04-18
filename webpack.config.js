@@ -10,6 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || process.env.ENV;
 const PATH = {
   REDUX_THUNK: path.resolve(__dirname, 'redux-thunk'),
   REDUX_SAGA: path.resolve(__dirname, 'redux-saga'),
+  MOBX: path.resolve(__dirname, 'mobx'),
   TMP: path.resolve(__dirname, '.tmp'),
   BABEL_CACHE: path.resolve(__dirname, '.tmp/.cache')
 };
@@ -17,7 +18,8 @@ const PATH = {
 const CONFIG = {
   entry: {
     'redux-thunk': path.join(PATH.REDUX_THUNK, 'index.js'),
-    'redux-saga': path.join(PATH.REDUX_SAGA, 'index.js')
+    'redux-saga': path.join(PATH.REDUX_SAGA, 'index.js'),
+    'mobx': path.join(PATH.MOBX, 'index.js')
   },
 
   output: {
@@ -56,8 +58,13 @@ const CONFIG = {
       chunks: ['redux-saga', 'vendors', 'runtime']
     }),
     new HtmlWebpackPlugin({
+      filename: 'mobx/index.html',
+      template: path.resolve(PATH.MOBX, 'index.html'),
+      chunks: ['mobx', 'vendors', 'runtime']
+    }),
+    new HtmlWebpackPlugin({
       template: path.resolve('index.html'),
-      chunks:[]
+      chunks: []
     }),
   ],
 
