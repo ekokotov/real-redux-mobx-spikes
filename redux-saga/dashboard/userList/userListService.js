@@ -8,8 +8,7 @@ class UserListService {
     params: {
       count
     }
-  })
-    .then(res => res.data)
+  }).then(res => res.data)
     .catch(res => {
       if (res.response.status === 403) store.dispatch(loginRedirect('/login'));
       throw res.response.data;

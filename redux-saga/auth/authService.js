@@ -12,32 +12,26 @@ class AuthService {
     if (token) store.dispatch(authenticate({user: jwtDecode(token), token}));
   };
 
-  signup(userData) {
-    return axios.post(http.SIGNUP, userData)
-      .then(res => res.data)
-      .catch(res => {
-        throw res.response.data
-      })
-  }
+  signup = userData => axios.post(http.SIGNUP, userData)
+    .then(res => res.data)
+    .catch(res => {
+      throw res.response.data;
+    });
 
-  login(userData) {
-    return axios.post(http.LOGIN, userData)
-      .then(res => res.data)
-      .catch(res => {
-        throw res.response.data
-      })
-  }
+  login = userData => axios.post(http.LOGIN, userData)
+    .then(res => res.data)
+    .catch(res => {
+      throw res.response.data;
+    });
 
   saveToken = token => {
     if (!this.getToken()) localStorage.setItem(AUTH_TOKEN_PATH, token);
     axios.defaults.headers.common.authorization = `Bearer ${token}`;
   };
 
-  getToken() {
-    return localStorage.getItem(AUTH_TOKEN_PATH);
-  }
+  getToken = () => localStorage.getItem(AUTH_TOKEN_PATH);
 
-  removeToken() {
+  removeToken = () => {
     localStorage.removeItem(AUTH_TOKEN_PATH);
     delete axios.defaults.headers.common.authorization;
   }

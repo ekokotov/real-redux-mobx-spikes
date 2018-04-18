@@ -1,4 +1,4 @@
-import {takeEvery, takeLatest, call, put, all} from 'redux-saga/effects';
+import {takeEvery, takeLatest, call, put, all, actionChannel, take} from 'redux-saga/effects';
 import {LOGIN_START, LOGIN_REDIRECT, SIGNUP_REDIRECT, LOGOUT, SIGNUP_START, LOGIN_SUCCESS} from "./authTypes";
 import {loginError, loginRedirect, authenticate} from './authActions';
 import AuthService from '../auth/authService';
@@ -6,15 +6,21 @@ import history from "../util/history";
 
 const authSagas = [
   takeEvery(LOGIN_START, loginSaga),
+  loginOnSuccessSaga(), // watch LOGIN_SUCCESS action and save token into LocalStorage + redirect to dashboard
   takeEvery(SIGNUP_START, signupSaga),
-  takeLatest(LOGIN_REDIRECT, redirectToPageSaga),
-  takeLatest(LOGOUT, logoutSaga),
-  takeLatest(SIGNUP_REDIRECT, redirectToPageSaga),
-  takeLatest(LOGIN_SUCCESS, loginSuccessSaga)
+  takeLatest([SIGNUP_REDIRECT, LOGIN_REDIRECT], redirectToPageSaga),
+  takeLatest(LOGOUT, logoutSaga)
 ];
 
-function* loginSuccessSaga(action) {
-  yield call(AuthService.saveToken, action.token);
+function* loginOnSuccessSaga() {
+  let channel = yield actionChannel(LOGIN_SUCCESS);
+  while (true) {
+    let {token} = yield take(channel);
+    yield all([
+      call(AuthService.saveToken, token),
+      put(loginRedirect('/'))
+    ]);
+  }
 }
 
 function* redirectToPageSaga(action) {
@@ -23,11 +29,8 @@ function* redirectToPageSaga(action) {
 
 function* loginSaga(action) {
   try {
-    const usserData = yield call(AuthService.login, action.user);
-    yield all([
-      put(authenticate(usserData)),
-      put(loginRedirect('/'))
-    ])
+    const userData = yield call(AuthService.login, action.user);
+    yield put(authenticate(userData));
   } catch (e) {
     yield put(loginError(e));
   }
@@ -37,11 +40,7 @@ function* loginSaga(action) {
 function* signupSaga(action) {
   try {
     const {user, token} = yield call(AuthService.signup, action.user);
-    yield all([
-      call(AuthService.saveToken, token),
-      put(authenticate({user, token})),
-      put(loginRedirect('/'))
-    ])
+    yield put(authenticate({user, token}));
   } catch (e) {
     yield put(loginError(e));
   }

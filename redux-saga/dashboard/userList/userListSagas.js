@@ -1,12 +1,11 @@
-import {takeEvery, call, put, take, fork} from 'redux-saga/effects';
+import {takeEvery, call, put, take, actionChannel} from 'redux-saga/effects';
 import {FETCH_USERS_START, SET_FETCHING_USERS_LIMIT} from "./userListTypes";
-import {LOGIN_SUCCESS} from "../../auth/authTypes";
 import UserService from './userListService';
 import {fetchUsersSuccess, fetchUsersError} from "./userListActions";
 
 const userListSagas = [
   takeEvery(FETCH_USERS_START, fetchUsers),
-  takeEvery(SET_FETCHING_USERS_LIMIT, setFetchingUsersLimit)
+  onChangingFetchingUsersLimit() // watch SET_FETCHING_USERS_LIMIT and execute FETCH_USERS_START
 ];
 
 function* fetchUsers (action) {
@@ -19,8 +18,12 @@ function* fetchUsers (action) {
   }
 }
 
-function* setFetchingUsersLimit (action) {
-  yield fetchUsers(action);
+function* onChangingFetchingUsersLimit () {
+  let channel = yield actionChannel(SET_FETCHING_USERS_LIMIT);
+  while(true) {
+    let action = yield take(channel);
+    yield fetchUsers(action);
+  }
 }
 
 export default userListSagas;
