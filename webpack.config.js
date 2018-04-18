@@ -55,6 +55,10 @@ const CONFIG = {
       template: path.resolve(PATH.REDUX_SAGA, 'index.html'),
       chunks: ['redux-saga', 'vendors', 'runtime']
     }),
+    new HtmlWebpackPlugin({
+      template: path.resolve('index.html'),
+      chunks:[]
+    }),
   ],
 
   module: {
