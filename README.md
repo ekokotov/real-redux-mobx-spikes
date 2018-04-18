@@ -1,10 +1,10 @@
 # Redux-thunk, Redux-saga, MobX spike
 
-The main goal of this repo is to compare popular react state management approach for real part of application
+The main goal of this repo is to compare popular react state management approaches for some real part of an application (JWT login/sign up and dashboard)
 
 ## Getting Started
-/server folder contains necessary backend routes
-/redux-* and /mobx folders - different client implementations.
+*/server* folder contains necessary backend routes
+*/redux-{saga/thunk}* and */mobx* folders - are source folders of different client implementations.
 
 ### Installing
 ```
