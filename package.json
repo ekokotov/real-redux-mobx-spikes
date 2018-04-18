@@ -2,7 +2,7 @@
   "name": "react-redux",
   "version": "0.0.1",
   "scripts": {
-    "dev": "set ENV=development&&concurrently \"webpack-dev-server --open --mode development\" \"nodemon server/app\" ",
+    "dev": "set ENV=development&&concurrently \"webpack-dev-server --mode development\" \"nodemon server/app\" ",
     "build": "webpack --mode production"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "express-joi-validator": "^2.0.0",
+    "history": "^4.7.2",
     "joi": "^13.1.2",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.2.1",

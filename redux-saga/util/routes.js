@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import history from './history';
 import LoginPage from "../auth/login";
 import SignUpPage from "../auth/signup";
 import Dashboard from "../dashboard/dashboard";
@@ -14,10 +15,10 @@ class Routes extends Component {
 
   render() {
     return (
-      <Switch>
+      <Switch history={history}>
         <Route path="/login" component={LoginPage}/>
         <Route path="/signup" component={SignUpPage}/>
-        <PrivateRoute exact path="/" component={Dashboard}/>
+        <PrivateRoute path="/" component={Dashboard}/>
       </Switch>
     )
   }

@@ -8,37 +8,36 @@ const path = require('path'),
 process.env.NODE_ENV = process.env.NODE_ENV || process.env.ENV;
 
 const PATH = {
-  SRC: path.resolve(__dirname, 'redux-client'),
-  DIST: path.resolve(__dirname, '.tmp'),
+  REDUX_THUNK: path.resolve(__dirname, 'redux-thunk'),
+  REDUX_SAGA: path.resolve(__dirname, 'redux-saga'),
+  TMP: path.resolve(__dirname, '.tmp'),
   BABEL_CACHE: path.resolve(__dirname, '.tmp/.cache')
 };
 
 const CONFIG = {
-  entry: [
-    path.join(PATH.SRC, 'index.js')
-  ],
+  entry: {
+    'redux-thunk': path.join(PATH.REDUX_THUNK, 'index.js'),
+    'redux-saga': path.join(PATH.REDUX_SAGA, 'index.js')
+  },
 
   output: {
-    path: PATH.DIST,
-    filename: 'react.[name].bundle.js'
+    path: PATH.TMP,
+    filename: './react.[name].bundle.js'
   },
 
   optimization: {
+    runtimeChunk: 'single',
     splitChunks: {
-      name: true,
       cacheGroups: {
-        commons: {
-          chunks: 'initial',
-          minChunks: 2
-        },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          enforce: true,
           chunks: 'all',
-          priority: -10
+          reuseExistingChunk: true
         }
       }
-    },
-    runtimeChunk: true
+    }
   },
 
   plugins: [
@@ -47,8 +46,15 @@ const CONFIG = {
       DEBUG: false
     }),
     new HtmlWebpackPlugin({
-      template: './index.html'
-    })
+      filename: 'thunk/index.html',
+      template: path.resolve(PATH.REDUX_THUNK, 'index.html'),
+      chunks: ['redux-thunk', 'vendors', 'runtime']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'saga/index.html',
+      template: path.resolve(PATH.REDUX_SAGA, 'index.html'),
+      chunks: ['redux-saga', 'vendors', 'runtime']
+    }),
   ],
 
   module: {
@@ -124,8 +130,7 @@ if (isPROD) {
   CONFIG.devServer = {
     publicPath: "/",
     contentBase: [
-      PATH.DIST,
-      PATH.SRC
+      PATH.TMP
     ],
     compress: true,
     historyApiFallback: true,

@@ -1,9 +1,9 @@
-import AuthService from './authService';
 import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from './authTypes';
 
 const initialState = {
   currentUser: null,
-  inProgress: false
+  inProgress: false,
+  errors: null
 };
 
 function reduce(state = initialState, action = {}) {
@@ -12,15 +12,16 @@ function reduce(state = initialState, action = {}) {
     case LOGIN_START:
       return {
         ...state,
-        inProgress: true
+        inProgress: true,
+        errors: null
       };
 
     case LOGIN_SUCCESS:
-      AuthService.saveToken(action.payload.token);
       return {
         ...state,
         inProgress: false,
-        currentUser: action.payload.user,
+        currentUser: action.user,
+        errors: null
       };
 
     case SIGNUP_FAILED:
@@ -28,15 +29,16 @@ function reduce(state = initialState, action = {}) {
       return {
         ...state,
         inProgress: false,
-        currentUser: null
+        currentUser: null,
+        errors: action.errors
       };
 
     case LOGOUT:
-      AuthService.removeToken();
       return {
         ...state,
         inProgress: false,
         currentUser: null,
+        errors: null
       };
 
     default:

@@ -6,8 +6,22 @@ const UserService = require('../services/user.service'),
   bcrypt = require('bcrypt');
 
 class AuthController {
+  constructor() {
+    this.checkJWTSession = this.checkJWTSession.bind(this);
+    this._generateTokenAndReturnSafeUserInfo = this._generateTokenAndReturnSafeUserInfo.bind(this);
+    this.login = this.login.bind(this);
+    this.signUp = this.signUp.bind(this);
+  }
 
-  static _getTokenFromRequest(req) {
+  _generateTokenAndReturnSafeUserInfo(user) {
+    if (!user) throw 'User is empty';
+    return {
+      token: this._generateJWTToken(user),
+      user: _pick(user, ['username', 'gender', 'email'])
+    }
+  }
+
+  _getTokenFromRequest(req) {
     if (req.headers.authorization) {
       let auth = req.headers.authorization.split(' ');
       if (auth[0] === 'Bearer') {
@@ -17,7 +31,7 @@ class AuthController {
   }
 
   checkJWTSession(req, res, next) {
-    let user, token = AuthController._getTokenFromRequest(req);
+    let user, token = this._getTokenFromRequest(req);
     if (!token) return res.status(403).json({error: 'No token found.'});
 
     user = jwt.verify(token, jwtConfig.secretKey);
@@ -34,27 +48,24 @@ class AuthController {
       if (!user) return res.status(404).json({error: 'User is not exists.'});
 
       if (bcrypt.compareSync(password, user.password)) {
-        return res.json({
-          token: AuthController._generateJWTToken(user),
-          user: _pick(user, ['username', 'gender', 'email'])
-        });
+        return res.status(201).json(this._generateTokenAndReturnSafeUserInfo(user));
       } else return res.status(404).json({error: 'Password is wrong.'});
 
     } catch (error) {
+      console.error(error);
       return res.status(500).json({error: 'Can\'t login the user. Internal Error.'});
     }
   }
 
   async signUp(req, res) {
-    let {email, password, username, gender} = req.body,
-      user, token;
+    let {email, password, username, gender} = req.body;
     try {
-      user = await UserService.addNew({email, password, username, gender});
-      token = AuthController._generateJWTToken(user.toJSON());
-      return res.status(201).json({user, token});
+      let user = await UserService.addNew({email, password, username, gender});
+      return res.status(201).json(this._generateTokenAndReturnSafeUserInfo(user));
     } catch (error) {
+      console.error(error);
       if (error.code === 11000) {
-        // Duplicate username
+        // Duplicate user
         return res.status(500).send({error: 'User already exist!'});
       } else return res.status(500).json({error: error.message});
     }
@@ -80,7 +91,7 @@ class AuthController {
     }
   }
 
-  static _generateJWTToken(user) {
+  _generateJWTToken(user) {
     return jwt.sign(JSON.stringify(_pick(user, ['email', 'gender', 'username'])), jwtConfig.secretKey);
   }
 }
