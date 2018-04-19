@@ -76,9 +76,9 @@ const CONFIG = {
         use: [
           {
             loader: 'babel-loader',
-            // options: {
-            //   cacheDirectory: PATH.BABEL_CACHE
-            // }
+            options: {
+              cacheDirectory: PATH.BABEL_CACHE
+            }
           }
         ]
       }
