@@ -12,7 +12,7 @@ class UserList extends Component {
     this.loadUsers(10);
   }
 
-  loadUsers = limit => this.props.userListStore.changeLimit(limit);
+  loadUsers = limit => this.props.userListStore.setLimit(limit);
 
   showError = (e) => <Alert message={e.error} type="danger"/>;
 

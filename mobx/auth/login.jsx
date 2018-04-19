@@ -16,7 +16,7 @@ class Login extends Component {
 
   submit(e) {
     e.preventDefault();
-    this.props.authStore.login(this.getFormInputs())
+    return this.props.authStore.login(this.getFormInputs())
       .then(() => {
         this.props.history.push("/");
       });

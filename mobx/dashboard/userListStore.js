@@ -4,35 +4,36 @@ import UserListService from './userListService';
 class UserListStore {
 
   @observable inProgress = false;
-  @observable errors = null;
+  @observable errors;
   @observable limit = 0;
   @observable users = [];
 
-  fetchUsers = reaction (
-    () => (this.limit),
-    limit => this._fetchUsers()
-  ); // observe load options and load user list
+  constructor() {
+    reaction(
+      () => this.limit,
+      limit => this._fetchUsers()
+    ); // observe request options and refresh user list
+  }
 
-  @action _fetchUsers() {
-    this.inProgress = true;
-    this.errors = null;
+  _fetchUsers() {
+    this.toggleProgress();
+    this.setErrors(null);
 
     return UserListService.getAll(this.limit)
-      .then(action(users => {
-        this.users = users;
-      }))
-      .catch(action(err => {
-        this.errors = err;
-        throw err;
-      }))
-      .finally(action(() => {
-        this.inProgress = false;
-      }))
+      .then(this.setUsers)
+      .catch(this.setErrors)
+      .finally(this.toggleProgress)
   }
 
-  @action changeLimit(newLimit) {
-    this.limit = parseInt(newLimit, 10);
-  }
+  @action setErrors = err => {
+    this.errors = err;
+    if (err) throw err;
+  };
+
+  @action setUsers = users => this.users = users;
+  @action toggleProgress = () => this.inProgress = !this.inProgress;
+  @action setLimit = newLimit => this.limit = parseInt(newLimit, 10);
+
 }
 
 export default new UserListStore();

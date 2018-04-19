@@ -15,7 +15,7 @@ class SignUp extends Component {
 
   submit(e) {
     e.preventDefault();
-    this.props.authStore.signUp(this.getFormInputs())
+    return this.props.authStore.signUp(this.getFormInputs())
       .then((data) => {
         this.props.history.push("/");
       });
@@ -25,6 +25,7 @@ class SignUp extends Component {
 
   render() {
     let {errors} = this.props.authStore;
+
     return (
       <div className="d-flex h-100">
         <form className="container justify-content-center align-self-center col-lg-4" onSubmit={this.submit}>
