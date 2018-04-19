@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx';
+import {action, observable} from 'mobx';
 import AuthService from './authService';
 
 class AuthStore {
@@ -20,9 +20,6 @@ class AuthStore {
 
   @action resetUser() {
     this.user = null;
-  }
-
-  @action resetToken() {
     this.token = null;
   }
 
@@ -45,8 +42,7 @@ class AuthStore {
   }
 
   @action logout() {
-    this.user = null;
-    this.token = null;
+    this.resetUser();
     AuthService.removeToken();
   }
 }

@@ -17,7 +17,6 @@ class SignUp extends Component {
     e.preventDefault();
     this.props.authStore.signUp(this.getFormInputs())
       .then((data) => {
-        debugger;
         this.props.history.push("/");
       });
   }

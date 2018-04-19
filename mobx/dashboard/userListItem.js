@@ -6,15 +6,15 @@ import {inject, observer} from "mobx-react/index";
 @observer
 class UserListItem extends Component {
   render() {
-    let {user} = this.props;
-
+    let {user} = this.props,
+      myEmail = this.props.authStore.user.email;
     return (
       <div className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">{user.username}</h5>
           <small style={{fontSize: '25px'}}><i className={`fas fa-${user.gender}`}/></small>
         </div>
-        {this.props.authStore.email === user.email && <span className="badge badge-info">You</span>}
+        {myEmail === user.email && <span className="badge badge-info">You</span>}
         &nbsp;
         <small>{user.email}</small>
       </div>

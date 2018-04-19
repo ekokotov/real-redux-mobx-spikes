@@ -9,7 +9,7 @@ class UserListService {
     }
   }).then(res => res.data)
     .catch(res => {
-      if (res.response.status === 403) store.dispatch(loginRedirect('/login'));
+      //if (res.response.status === 403) store.authStore.logout();
       throw res.response.data;
     })
 }

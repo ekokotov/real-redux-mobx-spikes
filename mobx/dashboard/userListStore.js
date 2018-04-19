@@ -1,15 +1,19 @@
-import {observable, action} from 'mobx';
+import {observable, action, reaction} from 'mobx';
 import UserListService from './userListService';
 
 class UserListStore {
 
   @observable inProgress = false;
   @observable errors = null;
-  @observable limit = 10;
+  @observable limit = 0;
+  @observable users = [];
 
-  users = observable([]);
+  fetchUsers = reaction (
+    () => (this.limit),
+    limit => this._fetchUsers()
+  ); // observe load options and load user list
 
-  @action fetchUsers() {
+  @action _fetchUsers() {
     this.inProgress = true;
     this.errors = null;
 
@@ -26,9 +30,8 @@ class UserListStore {
       }))
   }
 
-  @action setLimit(newLimit) {
-    this.limit = newLimit;
-    this.fetchUsers();
+  @action changeLimit(newLimit) {
+    this.limit = parseInt(newLimit, 10);
   }
 }
 

@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import {inject, observer} from "mobx-react/index";
+import {withRouter} from 'react-router-dom';
 
 @inject('authStore')
+@withRouter
 @observer
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
 
-  logout = () => {
-    console.log(this.props)
-    this.props.authStore.logout()
+  logout() {
+    this.props.authStore.logout();
     this.props.history.push('/login');
   };
 

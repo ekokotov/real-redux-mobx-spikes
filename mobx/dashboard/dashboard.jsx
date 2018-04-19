@@ -1,5 +1,5 @@
 import React, {PureComponent, Fragment} from "react";
-import UserList from "./userList";
+import UserList from "./userList/userList";
 import Nav from '../common/navigation';
 import {Route} from 'react-router-dom';
 
