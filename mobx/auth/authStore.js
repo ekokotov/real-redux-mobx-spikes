@@ -30,8 +30,8 @@ class AuthStore {
     this.token = null;
   }
 
-  @action signUp = userData => this._authRequest(AuthService.signup, userData);
-  @action login = userData => this._authRequest(AuthService.login, userData);
+  signUp = userData => this._authRequest(AuthService.signup, userData);
+  login = userData => this._authRequest(AuthService.login, userData);
 
   _authRequest(method, userData) {
     this.toggleProgress();
