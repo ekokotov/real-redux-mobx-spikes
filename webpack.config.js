@@ -71,20 +71,7 @@ const CONFIG = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [['es2015', {'modules': false}], "stage-2"],
-              cacheDirectory: PATH.BABEL_CACHE
-            }
-          }
-        ]
-      },
-      {
-        test: /\.jsx$/,
+        test: /\.js|jsx$/,
         exclude: /(node_modules|bower_components)/,
         use: [
           {

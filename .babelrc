@@ -7,14 +7,14 @@
       }
     ],
     "react",
-    "stage-2"
+    "stage-0"
   ],
   "env": {
     "development": {
-      "plugins": []
+      "plugins": ["transform-decorators-legacy"]
     },
     "production": {
-      "presets": ["react-optimize"]
+      "presets": ["transform-decorators-legacy", "react-optimize"]
     }
   }
 }
