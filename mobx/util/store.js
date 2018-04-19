@@ -1,5 +1,5 @@
 import authStore from '../auth/authStore';
-import userListStore from '../dashboard/userListStore.js';
+import userListStore from '../dashboard/userList/userListStore.js';
 
 const stores = {
   authStore,

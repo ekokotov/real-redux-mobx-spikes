@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import LimitInput from '../../common/limitInput';
 import {inject, observer} from 'mobx-react/index';
-import UserListItem from '../userListItem';
+import UserListItem from './userListItem';
 import Alert from '../../common/alert';
 
 @inject('userListStore', 'authStore')

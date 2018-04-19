@@ -1,6 +1,6 @@
 import axios from 'axios';
-import http from '../util/configs/http';
-import store from "../util/store";
+import http from '../../util/configs/http';
+import store from "../../util/store";
 
 class UserListService {
   getAll = count => axios.get(http.USERS, {
