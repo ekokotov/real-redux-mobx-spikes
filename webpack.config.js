@@ -1,11 +1,12 @@
 const path = require('path'),
   process = require('process'),
   webpack = require('webpack'),
-  isPROD = process.env.ENV === 'production',
+  isPROD = process.env.NODE_ENV === 'production',
   BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
+  uglifyjs = require('uglifyjs-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
 
-process.env.NODE_ENV = process.env.NODE_ENV || process.env.ENV;
+if (isPROD) console.warn("### You are using PRODUCTION mode ###");
 
 const PATH = {
   REDUX_THUNK: path.resolve(__dirname, 'redux-thunk'),
@@ -15,18 +16,94 @@ const PATH = {
   BABEL_CACHE: path.resolve(__dirname, '.tmp/.cache')
 };
 
-const CONFIG = {
+const BASE_CONFIG = {
+  mode: isPROD ? 'production' : 'development',
   entry: {
     'redux-thunk': path.join(PATH.REDUX_THUNK, 'index.js'),
     'redux-saga': path.join(PATH.REDUX_SAGA, 'index.js'),
     'mobx': path.join(PATH.MOBX, 'index.js')
   },
-
   output: {
     path: PATH.TMP,
-    filename: './react.[name].bundle.js'
+    filename: './[name]/react.[name].bundle.js'
   },
+  plugins: [],
+  module: {
+    rules: [
+      {
+        test: /\.js|jsx$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: PATH.BABEL_CACHE
+            }
+          }
+        ]
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
+};
 
+const PROD_CONFIG = {
+  plugins: [
+    new uglifyjs({
+      parallel: 4,
+      uglifyOptions: {
+        unused: true,
+        dead_code: true, // big one--strip code that will never execute
+        warnings: false, // good for prod apps so userList can't peek behind curtain
+        drop_debugger: true,
+        conditionals: true,
+        evaluate: true,
+        drop_console: true, // strips console statements
+        sequences: true,
+        booleans: true
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.ENV': JSON.stringify('production')
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined
+      DEBUG: false
+    }),
+    new webpack.optimize.AggressiveMergingPlugin({
+      minSizeReduce: 1,
+      moveToParents: true,
+      output: {
+        comments: false // remove all comments
+      }
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
+  ],
+//  resolve.alias = {
+//   "react": "preact-compat",
+//   "react-dom": "preact-compat",
+//   "react-redux": "preact-redux"
+// };
+};
+
+const DEV_CONFIG = {
+  devtool: "cheap-module-eval-source-map",
+  devServer: {
+    publicPath: "/",
+    contentBase: [
+      PATH.TMP
+    ],
+    compress: true,
+    historyApiFallback: true,
+    disableHostCheck: true,
+    proxy: {
+      '/api': 'http://127.0.0.1:8081'
+    }
+  },
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {
@@ -41,7 +118,6 @@ const CONFIG = {
       }
     }
   },
-
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
@@ -65,84 +141,16 @@ const CONFIG = {
     new HtmlWebpackPlugin({
       template: path.resolve('index.html'),
       chunks: []
-    }),
-  ],
-
-  module: {
-    rules: [
-      {
-        test: /\.js|jsx$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: PATH.BABEL_CACHE
-            }
-          }
-        ]
-      }
-    ]
-  },
-
-  resolve: {
-    extensions: ['.js', '.jsx']
-  }
+    })
+  ]
 };
 
-if (isPROD) {
-  console.warn("### You are using PRODUCTION mode ###");
-  // CONFIG.resolve.alias = {
-  //   "react": "preact-compat",
-  //   "react-dom": "preact-compat",
-  //   "react-redux": "preact-redux"
-  // };
-  CONFIG.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      comments: false, // remove comments
-      compress: {
-        unused: true,
-        dead_code: true, // big one--strip code that will never execute
-        warnings: false, // good for prod apps so userList can't peek behind curtain
-        drop_debugger: true,
-        conditionals: true,
-        evaluate: true,
-        drop_console: true, // strips console statements
-        sequences: true,
-        booleans: true
-      }
-    }),
-    new webpack.optimize.AggressiveMergingPlugin({
-      minSizeReduce: 1,
-      moveToParents: true,
-      output: {
-        comments: false // remove all comments
-      }
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin()
-  );
-
-} else {
-  CONFIG.devtool = "cheap-module-eval-source-map";
-  CONFIG.devServer = {
-    publicPath: "/",
-    contentBase: [
-      PATH.TMP
-    ],
-    compress: true,
-    historyApiFallback: true,
-    disableHostCheck: true,
-    proxy: {
-      '/api': 'http://127.0.0.1:8081'
-    }
-  };
-}
+const TARGET_CONFIG = Object.assign(BASE_CONFIG, isPROD ? PROD_CONFIG : DEV_CONFIG);
 
 if (process.env.INSPECT) {
-  CONFIG.plugins.push(
+  TARGET_CONFIG.plugins.push(
     new BundleAnalyzerPlugin()
   )
 }
 
-exports.default = CONFIG;
+exports.default = TARGET_CONFIG;

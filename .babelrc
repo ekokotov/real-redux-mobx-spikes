@@ -16,8 +16,7 @@
     "development": {},
     "production": {
       "plugins": [
-        "transform-decorators-legacy",
-        "react-optimize"
+        "transform-decorators-legacy"
       ]
     }
   }

@@ -4,7 +4,7 @@ import SignUpPage from "../auth/signup";
 import Dashboard from "../dashboard/dashboard";
 import {Switch, Route} from 'react-router-dom';
 import PrivateRoute from "../common/privateRoute";
-import DevTools from 'mobx-react-devtools';
+import DevTool from 'mobx-react-devtools';
 
 const Routes = props => (
   <Fragment>
@@ -13,7 +13,7 @@ const Routes = props => (
       <Route path="/signup" component={SignUpPage}/>
       <PrivateRoute path="/" component={Dashboard}/>
     </Switch>
-    <DevTools/>
+    {process.env.NODE_ENV === 'development' ? <DevTool/> : null}
   </Fragment>
 );
 
