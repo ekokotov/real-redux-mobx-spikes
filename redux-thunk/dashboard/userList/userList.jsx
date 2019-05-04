@@ -5,78 +5,74 @@ import {fetchUsers, setFetchingLimit} from './userListActions';
 import LimitInput from "../../common/limitInput";
 
 class UserList extends Component {
-  constructor() {
-    super();
-    this.selectLimit = this.selectLimit.bind(this);
-  }
+    selectLimit = newLimit => {
+        this.props.setFetchingLimit(newLimit);
+        this.getUsers(newLimit);
+    };
 
-  selectLimit(newLimit) {
-    this.props.setFetchingLimit(newLimit);
-    this.getUsers(newLimit);
-  }
+    state = {
+        users: []
+    };
 
-  state = {
-    users: []
-  };
+    componentDidMount() {
+        this.getUsers(this.props.limit);
+    }
 
-  componentDidMount() {
-    this.getUsers(this.props.limit);
-  }
+    getUsers(limit) {
+        return this.props.fetchUsers(limit)
+            .then(users => this.setState({users}))
+    }
 
-  getUsers(limit) {
-    return this.props.fetchUsers(limit)
-      .then(users => this.setState({users}))
-  }
-
-  render() {
-    let {currentUser, isLoading} = this.props;
-    return (
-      <Fragment>
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <h1>Users: <span className={isLoading ? '' : 'invisible'}>
+    render() {
+        let {currentUser, isLoading} = this.props;
+        return (
+            <Fragment>
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <h1>Users: <span className={isLoading ? '' : 'invisible'}>
                   <i className="fas fa-sync fa-spin"/>
                 </span></h1>
-            </div>
+                        </div>
 
-            <div className="col">
-              <LimitInput limit={this.props.limit} values={[1, 5, 10, 25, 50]} select={this.selectLimit}/>
-            </div>
-          </div>
-        </div>
+                        <div className="col">
+                            <LimitInput limit={this.props.limit} values={[1, 5, 10, 25, 50]} select={this.selectLimit}/>
+                        </div>
+                    </div>
+                </div>
 
-        {this.state.users.length && <div className="list-group">
+                {this.state.users.length && <div className="list-group">
 
-          {this.state.users.map(user =>
-            <a href="#" key={user.email}
-               className="list-group-item list-group-item-action flex-column align-items-start">
-              <div className="d-flex w-100 justify-content-between">
-                <h5 className="mb-1">{user.username}</h5>
-                <small style={{fontSize: '25px'}}><i className={`fas fa-${user.gender}`}/></small>
-              </div>
-              {currentUser.email === user.email && <span className="badge badge-info">You</span>}
-              &nbsp;
-              <small>{user.email}</small>
-            </a>)
-          }
+                    {this.state.users.map(user =>
+                        <a href="#" key={user.email}
+                           className="list-group-item list-group-item-action flex-column align-items-start">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1">{user.username}</h5>
+                                <small style={{fontSize: '25px'}}><i className={`fas fa-${user.gender}`}/></small>
+                            </div>
+                            {currentUser.email === user.email && <span className="badge badge-info">You</span>}
+                            &nbsp;
+                            <small>{user.email}</small>
+                        </a>)
+                    }
 
-        </div>}
-      </Fragment>
-    )
-  }
+                </div>}
+            </Fragment>
+        )
+    }
 }
 
 UserList.propTypes = {
-  limit: PropTypes.number.isRequired,
-  currentUser: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+    limit: PropTypes.number.isRequired,
+    currentUser: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
 };
 
-export default connect(state => {
-  return {
+export default connect(state => ({
     limit: state.userList.limit,
     isLoading: state.userList.inProgress,
     currentUser: state.auth.currentUser,
-  }
-}, {fetchUsers, setFetchingLimit})(UserList);
+}), {
+    fetchUsers,
+    setFetchingLimit
+})(UserList);

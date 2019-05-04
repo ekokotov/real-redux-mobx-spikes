@@ -15,10 +15,7 @@ mainRouter.use('/auth', authRouter);
 mainRouter.use('/users', usersRouter);
 app.use('/api', mainRouter);
 
-app.listen(8081, () => {
-  connectToMongo();
-  console.log('Start app listening on port 8081!');
-});
+app.listen(8081, connectToMongo);
 
 //validation error handler
 app.use((err, req, res, next) => {

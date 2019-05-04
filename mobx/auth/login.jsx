@@ -8,19 +8,12 @@ import _mapValues from "lodash/mapValues";
 @inject('authStore')
 @observer
 class Login extends Component {
-  constructor() {
-    super();
-    this.submit = this.submit.bind(this);
-    this.formInputs = {};
-  }
+  formInputs = {};
 
-  submit(e) {
-    e.preventDefault();
-    return this.props.authStore.login(this.getFormInputs())
-      .then(() => {
-        this.props.history.push("/");
-      });
-  }
+  submit = async() => {
+    await this.props.authStore.login(this.getFormInputs());
+    this.props.history.push("/");
+  };
 
   getFormInputs = () => _mapValues(this.formInputs, input => input.value);
 

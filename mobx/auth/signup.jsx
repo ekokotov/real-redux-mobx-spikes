@@ -2,24 +2,18 @@ import React, {Component} from 'react';
 import _mapValues from 'lodash/mapValues';
 import Alert from '../common/alert';
 import FormInput from '../common/formInput';
-import {inject, observer} from "mobx-react/index";
+import {inject, observer} from "mobx-react";
 
 @inject('authStore')
 @observer
 class SignUp extends Component {
-  constructor() {
-    super();
-    this.submit = this.submit.bind(this);
-    this.formInputs = {};
-  }
+  formInputs = {};
 
-  submit(e) {
+  submit = async e => {
     e.preventDefault();
-    return this.props.authStore.signUp(this.getFormInputs())
-      .then((data) => {
-        this.props.history.push("/");
-      });
-  }
+    await this.props.authStore.signUp(this.getFormInputs());
+    this.props.history.push("/");
+  };
 
   getFormInputs = () => _mapValues(this.formInputs, input => input.value);
 
@@ -47,7 +41,7 @@ class SignUp extends Component {
               <option value="female">Female</option>
             </select>
           </div>
-          <button className="btn btn-lg btn-primary btn-block"><i className="fas fa-sign-in-alt"/> Sign in</button>
+          <button className="btn btn-lg btn-primary btn-block"><i className="fas fa-sign-in-alt"/> Sign up</button>
         </form>
       </div>
     )

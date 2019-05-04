@@ -11,11 +11,11 @@ class UserListStore {
   constructor() {
     reaction(
       () => this.limit,
-      limit => this._fetchUsers()
+      this._fetchUsers
     ); // observe request options and refresh user list
   }
 
-  _fetchUsers() {
+  _fetchUsers = () => {
     this.toggleProgress();
     this.setErrors(null);
 
@@ -23,7 +23,7 @@ class UserListStore {
       .then(this.setUsers)
       .catch(this.setErrors)
       .finally(this.toggleProgress)
-  }
+  };
 
   @action setErrors = err => {
     this.errors = err;

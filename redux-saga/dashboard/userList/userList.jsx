@@ -5,14 +5,7 @@ import {fetchUsers, setFetchingLimit} from './userListActions';
 import LimitInput from "../../common/limitInput";
 
 class UserList extends Component {
-  constructor() {
-    super();
-    this.selectLimit = this.selectLimit.bind(this);
-  }
-
-  selectLimit(newLimit) {
-    this.props.setFetchingLimit(newLimit);
-  }
+  selectLimit = newLimit => this.props.setFetchingLimit(newLimit);
 
   state = {
     users: []

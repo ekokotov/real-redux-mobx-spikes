@@ -2,15 +2,14 @@ import {action, observable} from 'mobx';
 import AuthService from './authService';
 
 class AuthStore {
-  constructor(data) {
+  constructor() {
     const userIdentity = AuthService.getToken();
     if (userIdentity) this.setAuth(userIdentity);
-    this.setAuth = this.setAuth.bind(this);
   };
 
   @observable inProgress = false;
   @observable errors;
-  @observable token;
+  token;
   @observable user;
 
   @action toggleProgress = () => this.inProgress = !this.inProgress;
@@ -19,11 +18,12 @@ class AuthStore {
     if (err) throw err;
   };
 
-  @action setAuth({user, token}) {
+  @action
+  setAuth = ({user, token}) =>{
     this.user = user;
     this.token = token;
     AuthService.saveToken(token);
-  }
+  };
 
   @action resetUser() {
     this.user = null;

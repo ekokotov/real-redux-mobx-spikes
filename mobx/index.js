@@ -6,9 +6,7 @@ import {Provider} from 'mobx-react';
 import stores from './util/store';
 import { configure } from 'mobx';
 
-configure({
-  enforceActions: true
-});
+configure({ enforceActions: "observed" });
 
 render(
   <Provider {...stores}>

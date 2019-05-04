@@ -6,40 +6,42 @@ import {authenticate} from './authActions';
 const AUTH_TOKEN_PATH = 'auth_token';
 
 class AuthService {
-  init() {
-    const token = this.getToken();
-    if (token) store.dispatch(authenticate({user: jwtDecode(token), token}));
-  }
+    init = () => {
+        const token = this.getToken();
+        if (token) store.dispatch(authenticate({user: jwtDecode(token), token}));
+    };
 
-  signup(userData) {
-    return axios.post(http.SIGNUP, userData)
-      .then(res => res.data)
-      .catch(res => {
-        throw res.response.data
-      })
-  }
+    signup = async userData => {
+        try {
+            const res = await axios.post(http.SIGNUP, userData);
+            return res.data;
+        } catch (e) {
+            throw e.response.data;
+        }
+    };
 
-  login(userData) {
-    return axios.post(http.LOGIN, userData)
-      .then(res => res.data)
-      .catch(res => {
-        throw res.response.data
-      })
-  }
+    login = async userData => {
+        try {
+            const res = await axios.post(http.LOGIN, userData);
+            return res.data;
+        } catch (e) {
+            throw e.response.data;
+        }
+    };
 
-  saveToken(token) {
-    if (!this.getToken()) localStorage.setItem(AUTH_TOKEN_PATH, token);
-    axios.defaults.headers.common.authorization = `Bearer ${token}`;
-  }
+    getToken = () => localStorage.getItem(AUTH_TOKEN_PATH);
 
-  getToken() {
-    return localStorage.getItem(AUTH_TOKEN_PATH);
-  }
+    saveToken = token => {
+        if (!this._getEncodedToken()) localStorage.setItem(AUTH_TOKEN_PATH, token);
+        axios.defaults.headers.common.authorization = `Bearer ${token}`;
+    };
 
-  removeToken() {
-    localStorage.removeItem(AUTH_TOKEN_PATH);
-    delete axios.defaults.headers.common.authorization;
-  }
+    _getEncodedToken = () => localStorage.getItem(AUTH_TOKEN_PATH);
+
+    removeToken = () => {
+        localStorage.removeItem(AUTH_TOKEN_PATH);
+        delete axios.defaults.headers.common.authorization;
+    }
 
 }
 

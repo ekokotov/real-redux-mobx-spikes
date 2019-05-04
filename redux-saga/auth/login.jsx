@@ -7,20 +7,12 @@ import Alert from '../common/alert';
 import FormInput from '../common/formInput';
 
 class Login extends PureComponent {
-  constructor() {
-    super();
-    this.submit = this.submit.bind(this);
-    this.formInputs = {};
-  }
-
+  formInputs = {};
   state = {
     errors: null
   };
 
-  submit(e) {
-    e.preventDefault();
-    this.props.login({email: this.formInputs.email.value, password: this.formInputs.password.value});
-  }
+  submit = () => this.props.login({email: this.formInputs.email.value, password: this.formInputs.password.value});
 
   render() {
     let {errors} = this.props;

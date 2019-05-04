@@ -3,15 +3,10 @@ import {logout} from '../auth/authActions';
 import {connect} from 'react-redux';
 
 class Nav extends PureComponent {
-  constructor() {
-    super();
-    this.logout = this.logout.bind(this);
-  }
-
-  logout(e) {
+  logout = e => {
     e.preventDefault();
     this.props.logout();
-  }
+  };
 
   render() {
     let {user} = this.props;
@@ -31,6 +26,7 @@ class Nav extends PureComponent {
   }
 }
 
-export default connect(state => {
-  return {user: state.auth.currentUser}
-}, {logout})(Nav);
+export default connect(state => (
+    {user: state.auth.currentUser}
+    ), {logout}
+    )(Nav);

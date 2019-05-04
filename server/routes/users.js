@@ -11,7 +11,7 @@ router.get('/', privateRoute, UserController.getAll);
 
 router.get(
   '/:id',
-  validate(UserController._validateUserId()),
+  validate(UserController._validateUserId),
   privateRoute,
   UserController.getOne);
 

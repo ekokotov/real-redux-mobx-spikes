@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import LimitInput from '../../common/limitInput';
-import {inject, observer} from 'mobx-react/index';
+import {inject, observer} from 'mobx-react';
 import UserListItem from './userListItem';
 import Alert from '../../common/alert';
 
@@ -27,7 +27,7 @@ class UserList extends Component {
           </div>
 
           <div className="col">
-            <LimitInput limit={this.props.limit} values={[1, 5, 10, 25, 50]} select={this.loadUsers}/>
+            <LimitInput limit={this.props.userListStore.limit} values={[1, 5, 10, 25, 50]} select={this.loadUsers}/>
           </div>
         </div>
       </div>
@@ -42,7 +42,6 @@ class UserList extends Component {
 
   render() {
     let {inProgress, users, errors} = this.props.userListStore;
-    let currentUser = this.props.authStore.user;
     return errors ? this.showError(errors) : this.showUsers(inProgress, users);
   }
 }

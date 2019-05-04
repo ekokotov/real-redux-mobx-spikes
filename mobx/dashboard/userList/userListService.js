@@ -8,9 +8,9 @@ class UserListService {
       count
     }
   }).then(res => res.data)
-    .catch(res => {
+    .catch(e => {
       //if (res.response.status === 403) store.authStore.logout();
-      throw res.response.data;
+      throw e.response.data;
     })
 }
 

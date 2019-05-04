@@ -8,20 +8,15 @@ import Alert from '../common/alert';
 import FormInput from '../common/formInput';
 
 class SignUp extends PureComponent {
-  constructor() {
-    super();
-    this.submit = this.submit.bind(this);
-    this.formInputs = {};
-  }
-
+  formInputs = {};
   state = {
     errors: null
   };
 
-  submit(e) {
+  submit = e => {
     e.preventDefault();
     this.props.signup(this.getFormInputs());
-  }
+  };
 
   getFormInputs() {
     return _mapValues(this.formInputs, input => input.value);
@@ -50,7 +45,7 @@ class SignUp extends PureComponent {
               <option value="female">Female</option>
             </select>
           </div>
-          <button className="btn btn-lg btn-primary btn-block"><i className="fas fa-sign-in-alt"/> Sign in</button>
+          <button className="btn btn-lg btn-primary btn-block"><i className="fas fa-sign-in-alt"/> Sign up</button>
         </form>
       </div>
     )
@@ -63,9 +58,8 @@ SignUp.propTypes = {
   errors: PropTypes.object
 };
 
-export default connect(state => {
-  return {
+export default connect(state => ({
     loading: state.auth.inProgress,
     errors: state.auth.errors
   }
-}, {signup})(withRouter(SignUp));
+), {signup})(withRouter(SignUp));
