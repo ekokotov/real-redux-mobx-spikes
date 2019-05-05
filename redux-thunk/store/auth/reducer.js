@@ -1,6 +1,6 @@
-import AuthService from './authService';
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from './authTypes';
-import {LOGIN_REDIRECT} from "../../redux-saga/store/auth/action-types";
+import AuthService from './auth-service';
+import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from './action-types';
+import {LOGIN_REDIRECT} from "../../../redux-saga/store/auth/action-types";
 
 const initialState = {
   currentUser: null,

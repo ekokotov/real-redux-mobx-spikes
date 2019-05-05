@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import LoginPage from "../auth/login";
-import SignUpPage from "../auth/signup";
-import Dashboard from "../dashboard/dashboard";
+import LoginPage from "../pages/auth/login";
+import SignUpPage from "../pages/auth/signup";
+import Index from "../pages/dashboard";
 import {Switch, Route} from 'react-router-dom';
-import PrivateRoute from "../common/privateRoute";
-import AuthService from '../auth/authService';
+import PrivateRoute from "../components/privateRoute";
+import AuthService from '../store/auth/auth-service';
 
 class Routes extends Component {
   constructor() {
@@ -17,7 +17,7 @@ class Routes extends Component {
       <Switch>
         <Route path="/login" component={LoginPage}/>
         <Route path="/signup" component={SignUpPage}/>
-        <PrivateRoute path="/" component={Dashboard}/>
+        <PrivateRoute path="/" component={Index}/>
       </Switch>
     )
   }
