@@ -3,7 +3,7 @@ import UserList from "./userList";
 import Nav from '../../components/navigation';
 import {Route} from 'react-router-dom';
 
-class Index extends PureComponent {
+class DashBoard extends PureComponent {
   render() {
     return (
       <Fragment>
@@ -16,4 +16,4 @@ class Index extends PureComponent {
   }
 }
 
-export default Index;
+export default DashBoard;

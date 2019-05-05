@@ -1,12 +1,11 @@
-import axios from 'axios';
-import http from '../../util/configs/http';
-import store from '../index';
+import axios from 'axios/index';
+import http from '../util/configs/http';
+import store from '../store';
 import jwtDecode from 'jwt-decode';
-import {authenticate} from './actions';
-
+import {authenticate} from '../store/auth/actions';
 const AUTH_TOKEN_PATH = 'auth_token';
 
-class AuthService {
+class Auth {
     init = () => {
         const token = this.getToken();
         if (token) store.dispatch(authenticate({user: jwtDecode(token), token}));
@@ -46,4 +45,4 @@ class AuthService {
 
 }
 
-export default new AuthService();
+export default new Auth();

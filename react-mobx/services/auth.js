@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 
 const AUTH_TOKEN_PATH = 'auth_token';
 
-class AuthService {
+class Auth {
     getToken() {
         const token = this._getEncodedToken();
         if (token) {
@@ -44,4 +44,4 @@ class AuthService {
 
 }
 
-export default new AuthService();
+export default new Auth();

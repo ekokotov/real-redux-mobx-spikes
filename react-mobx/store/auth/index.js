@@ -1,5 +1,5 @@
 import {action, observable} from 'mobx';
-import AuthService from './authService';
+import AuthService from '../../services/auth';
 
 class AuthStore {
   constructor() {

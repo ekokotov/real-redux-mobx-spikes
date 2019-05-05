@@ -11,7 +11,7 @@ if (isPROD) console.warn("### You are using PRODUCTION mode ###");
 const PATH = {
   REDUX_THUNK: path.resolve(__dirname, 'redux-thunk'),
   REDUX_SAGA: path.resolve(__dirname, 'redux-saga'),
-  MOBX: path.resolve(__dirname, 'mobx'),
+  MOBX: path.resolve(__dirname, 'react-mobx'),
   TMP: path.resolve(__dirname, '.tmp'),
   BABEL_CACHE: path.resolve(__dirname, '.tmp/.cache')
 };
@@ -134,7 +134,7 @@ const DEV_CONFIG = {
       chunks: ['redux-saga', 'vendors', 'runtime']
     }),
     new HtmlWebpackPlugin({
-      filename: 'mobx/index.html',
+      filename: 'react-mobx/index.html',
       template: path.resolve(PATH.MOBX, 'index.html'),
       chunks: ['mobx', 'vendors', 'runtime']
     }),

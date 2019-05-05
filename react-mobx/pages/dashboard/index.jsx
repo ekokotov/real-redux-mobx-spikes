@@ -1,9 +1,9 @@
 import React, {PureComponent, Fragment} from "react";
-import UserList from "./userList/userList";
-import Nav from '../common/navigation';
+import UserList from "./userList";
+import Nav from '../../components/navigation';
 import {Route} from 'react-router-dom';
 
-class Dashboard extends PureComponent {
+class DashBoard extends PureComponent {
   render() {
     return (
       <Fragment>
@@ -16,4 +16,4 @@ class Dashboard extends PureComponent {
   }
 }
 
-export default Dashboard;
+export default DashBoard;

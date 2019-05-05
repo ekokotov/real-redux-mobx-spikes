@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
-import stores from '../util/store';
+import stores from '../store';
 
 const PrivateRoute = ({isAuthenticated, component: Component, ...rest}) => (
   <Route {...rest} render={props => stores.authStore.user ? <Component {...props} />

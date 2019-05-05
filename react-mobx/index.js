@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import Routes from './util/routes.js';
 import {HashRouter} from 'react-router-dom'
 import {Provider} from 'mobx-react';
-import stores from './util/store';
+import stores from './store';
 import { configure } from 'mobx';
 
 configure({ enforceActions: "observed" });

@@ -1,7 +1,7 @@
 import {observable, action, reaction} from 'mobx';
-import UserListService from './userListService';
+import UserListService from '../../services/user-list';
 
-class UserListStore {
+class UsersStore {
 
   @observable inProgress = false;
   @observable errors;
@@ -36,4 +36,4 @@ class UserListStore {
 
 }
 
-export default new UserListStore();
+export default new UsersStore();

@@ -1,7 +1,7 @@
 import {takeEvery, takeLatest, call, put, all, actionChannel, take} from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import {LOGIN_START, LOGIN_REDIRECT, SIGNUP_REDIRECT, LOGOUT, SIGNUP_START, LOGIN_SUCCESS} from "./action-types";
 import {loginError, loginRedirect, authenticate, signupError} from './actions';
-import AuthService from './auth-service';
+import AuthService from '../../services/auth';
 import {history} from "../../util/routes";
 
 export default [

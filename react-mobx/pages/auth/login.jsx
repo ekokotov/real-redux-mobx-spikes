@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Alert from '../common/alert';
-import FormInput from '../common/formInput';
+import Alert from '../../components/alert';
+import FormInput from '../../components/formInput';
 import {inject, observer} from 'mobx-react';
 import _mapValues from "lodash/mapValues";
 

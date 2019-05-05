@@ -1,8 +1,8 @@
-import axios from 'axios';
-import http from '../../util/configs/http';
-import store from "../../util/store";
+import axios from 'axios/index';
+import http from '../util/configs/http';
+import store from "../store";
 
-class UserListService {
+class UserList {
   getAll = count => axios.get(http.USERS, {
     params: {
       count
@@ -14,4 +14,4 @@ class UserListService {
     })
 }
 
-export default new UserListService();
+export default new UserList();

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {fetchUsers, setFetchingLimit} from '../../../store/users/actions';
 import LimitInput from "../../../components/limitInput";
 
-class Index extends Component {
+class UserList extends Component {
     selectLimit = newLimit => {
         this.props.setFetchingLimit(newLimit);
         this.getUsers(newLimit);
@@ -62,7 +62,7 @@ class Index extends Component {
     }
 }
 
-Index.propTypes = {
+UserList.propTypes = {
     limit: PropTypes.number.isRequired,
     currentUser: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -75,4 +75,4 @@ export default connect(state => ({
 }), {
     fetchUsers,
     setFetchingLimit
-})(Index);
+})(UserList);

@@ -1,6 +1,6 @@
 import {takeEvery, call, put, take, actionChannel} from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import {FETCH_USERS_START, SET_FETCHING_USERS_LIMIT} from "./action-types";
-import UserService from './user-list-service';
+import UserService from '../../services/user-list';
 import {fetchUsersSuccess, fetchUsersError} from "./actions";
 
 const sagas = [

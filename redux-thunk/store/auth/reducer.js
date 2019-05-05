@@ -1,4 +1,4 @@
-import AuthService from './auth-service';
+import AuthService from '../../services/auth';
 import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from './action-types';
 import {LOGIN_REDIRECT} from "../../../redux-saga/store/auth/action-types";
 

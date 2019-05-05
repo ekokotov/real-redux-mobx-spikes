@@ -1,5 +1,5 @@
 import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_START, SIGNUP_FAILED} from './action-types';
-import AuthService from "./auth-service";
+import AuthService from "../../services/auth";
 
 export const login = user => dispatch => {
   dispatch({type: LOGIN_START});

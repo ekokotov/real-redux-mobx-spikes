@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import _mapValues from 'lodash/mapValues';
-import Alert from '../common/alert';
-import FormInput from '../common/formInput';
+import Alert from '../../components/alert';
+import FormInput from '../../components/formInput';
 import {inject, observer} from "mobx-react";
 
 @inject('authStore')
