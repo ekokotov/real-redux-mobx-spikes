@@ -12,6 +12,7 @@ const PATH = {
   REDUX_THUNK: path.resolve(__dirname, 'redux-thunk'),
   REDUX_SAGA: path.resolve(__dirname, 'redux-saga'),
   MOBX: path.resolve(__dirname, 'react-mobx'),
+  HOOKS: path.resolve(__dirname, 'react-hooks'),
   TMP: path.resolve(__dirname, '.tmp'),
   BABEL_CACHE: path.resolve(__dirname, '.tmp/.cache')
 };
@@ -21,7 +22,8 @@ const BASE_CONFIG = {
   entry: {
     'redux-thunk': path.join(PATH.REDUX_THUNK, 'index.js'),
     'redux-saga': path.join(PATH.REDUX_SAGA, 'index.js'),
-    'mobx': path.join(PATH.MOBX, 'index.js')
+    'mobx': path.join(PATH.MOBX, 'index.js'),
+    'hooks': path.join(PATH.HOOKS, 'index.js')
   },
   output: {
     path: PATH.TMP,
@@ -137,6 +139,11 @@ const DEV_CONFIG = {
       filename: 'react-mobx/index.html',
       template: path.resolve(PATH.MOBX, 'index.html'),
       chunks: ['mobx', 'vendors', 'runtime']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'react-hooks/index.html',
+      template: path.resolve(PATH.HOOKS, 'index.html'),
+      chunks: ['hooks', 'vendors', 'runtime']
     }),
     new HtmlWebpackPlugin({
       template: path.resolve('index.html'),
