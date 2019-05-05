@@ -3,7 +3,7 @@ import {FETCH_USERS_START, SET_FETCHING_USERS_LIMIT} from "./action-types";
 import UserService from '../../services/user-list';
 import {fetchUsersSuccess, fetchUsersError} from "./actions";
 
-const sagas = [
+export default [
   takeEvery(FETCH_USERS_START, fetchUsers),
   onChangingFetchingUsersLimit() // watch SET_FETCHING_USERS_LIMIT and execute FETCH_USERS_START
 ];
@@ -25,5 +25,3 @@ function* onChangingFetchingUsersLimit () {
     yield fetchUsers(action);
   }
 }
-
-export default sagas;

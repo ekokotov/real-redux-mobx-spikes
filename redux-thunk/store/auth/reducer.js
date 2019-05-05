@@ -1,6 +1,4 @@
-import AuthService from '../../services/auth';
 import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_FAILED, SIGNUP_START} from './action-types';
-import {LOGIN_REDIRECT} from "../../../redux-saga/store/auth/action-types";
 
 const initialState = {
   currentUser: null,
@@ -17,7 +15,6 @@ function reduce(state = initialState, action = {}) {
       };
 
     case LOGIN_SUCCESS:
-      AuthService.saveToken(action.payload.token);
       return {
         ...state,
         inProgress: false,
@@ -26,7 +23,6 @@ function reduce(state = initialState, action = {}) {
 
     case SIGNUP_FAILED:
     case LOGIN_FAILED:
-      console.log(action);
       return {
         ...state,
         inProgress: false,
@@ -35,14 +31,12 @@ function reduce(state = initialState, action = {}) {
       };
 
     case LOGOUT:
-      AuthService.removeToken();
       return {
         ...state,
         inProgress: false,
         currentUser: null,
       };
 
-    case LOGIN_REDIRECT:
     default:
       return state
   }
