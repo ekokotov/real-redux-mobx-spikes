@@ -1,4 +1,4 @@
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_START, SIGNUP_FAILED} from './authTypes';
+import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SIGNUP_START, SIGNUP_FAILED} from './action-types';
 
 export const login = userData => ({type: LOGIN_START, user: userData});
 export const loginError = errors => ({type: LOGIN_FAILED, errors});

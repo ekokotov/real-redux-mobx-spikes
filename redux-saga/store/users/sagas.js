@@ -1,9 +1,9 @@
-import {takeEvery, call, put, take, actionChannel} from 'redux-saga/effects';
-import {FETCH_USERS_START, SET_FETCHING_USERS_LIMIT} from "./userListTypes";
-import UserService from './userListService';
-import {fetchUsersSuccess, fetchUsersError} from "./userListActions";
+import {takeEvery, call, put, take, actionChannel} from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
+import {FETCH_USERS_START, SET_FETCHING_USERS_LIMIT} from "./action-types";
+import UserService from './user-list-service';
+import {fetchUsersSuccess, fetchUsersError} from "./actions";
 
-const userListSagas = [
+const sagas = [
   takeEvery(FETCH_USERS_START, fetchUsers),
   onChangingFetchingUsersLimit() // watch SET_FETCHING_USERS_LIMIT and execute FETCH_USERS_START
 ];
@@ -26,4 +26,4 @@ function* onChangingFetchingUsersLimit () {
   }
 }
 
-export default userListSagas;
+export default sagas;

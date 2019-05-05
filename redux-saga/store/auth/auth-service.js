@@ -1,8 +1,8 @@
-import axios from 'axios';
-import http from '../util/configs/http';
-import store from '../util/store';
+import axios from 'axios/index';
+import http from '../../util/configs/http';
+import store from '../index';
 import jwtDecode from 'jwt-decode';
-import {authenticate} from './authActions';
+import {authenticate} from './actions';
 
 const AUTH_TOKEN_PATH = 'auth_token';
 

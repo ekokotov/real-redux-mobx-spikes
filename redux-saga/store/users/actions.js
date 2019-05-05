@@ -1,4 +1,4 @@
-import {FETCH_USERS_START, FETCH_USERS_FAILED, FETCH_USERS_SUCCESS, SET_FETCHING_USERS_LIMIT} from './userListTypes';
+import {FETCH_USERS_START, FETCH_USERS_FAILED, FETCH_USERS_SUCCESS, SET_FETCHING_USERS_LIMIT} from './action-types';
 
 export const fetchUsers = count => ({type: FETCH_USERS_START});
 export const fetchUsersSuccess = users => ({type: FETCH_USERS_SUCCESS, ...users});

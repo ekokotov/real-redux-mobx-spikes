@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from 'axios/index';
 import http from '../../util/configs/http';
-import {loginRedirect} from "../../auth/authActions";
-import store from "../../util/store";
+import {loginRedirect} from "../auth/actions";
+import store from "../index";
 
 class UserListService {
   getAll = count => axios.get(http.USERS, {
