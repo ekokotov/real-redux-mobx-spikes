@@ -1,4 +1,4 @@
-import axios from 'axios/index';
+import axios from 'axios';
 import http from '../util/configs/http';
 import {loginRedirect} from "../store/auth/actions";
 import store from "../store";

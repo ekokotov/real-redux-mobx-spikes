@@ -1,4 +1,4 @@
-import axios from 'axios/index';
+import axios from 'axios';
 import http from '../util/configs/http';
 import store from '../store';
 import jwtDecode from 'jwt-decode';

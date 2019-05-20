@@ -7,7 +7,7 @@ function Nav() {
     const user = state.auth.currentUser;
     const logoutMe = event => {
         event.preventDefault();
-        logout(dispatch);
+        dispatch(logout());
     };
 
     return (

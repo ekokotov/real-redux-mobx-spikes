@@ -6,10 +6,10 @@ import {Store} from "../../../store";
 function UserList() {
     const {state, dispatch} = React.useContext(Store);
     const {users, isLoading, limit} = state.userList;
-    const selectLimit = newLimit => setFetchingLimit(newLimit, dispatch);
+    const selectLimit = newLimit => dispatch(setFetchingLimit(newLimit));
 
     useEffect(
-        ()=> fetchUsers(state.userList.limit, dispatch),
+        () => dispatch(fetchUsers(state.userList.limit)),
         [limit]
     );
 

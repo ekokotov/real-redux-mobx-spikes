@@ -1,4 +1,4 @@
-import axios from 'axios/index';
+import axios from 'axios';
 import http from '../util/configs/http';
 
 class UserList {
@@ -8,8 +8,8 @@ class UserList {
     }
   })
     .then(res => res.data)
-    .catch(res => {
-      throw res.response.data
+    .catch(errorRes => {
+      throw errorRes.response.data
     })
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import LoginPage from "../pages/auth/login";
+import LoginPage from "../pages/auth/login-class";
 import SignUpPage from "../pages/auth/signup";
 import DashBoard from "../pages/dashboard";
 import {Switch, Route} from 'react-router-dom';

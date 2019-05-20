@@ -5,7 +5,7 @@ import Alert from './alert';
 const FormInput = React.forwardRef((props, ref) => (
     <div className="form-group">
         <label htmlFor={props.label}>{props.label}</label>
-        <input type={props.type} id={props.label} ref={ref} className="form-control"
+        <input type={props.type} id={props.label} ref={ref} autoComplete="" className="form-control"
                placeholder={props.label} required={props.required}/>
         {props.error && <Alert message={props.error} type="danger"/>}
     </div>));

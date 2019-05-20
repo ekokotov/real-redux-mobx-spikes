@@ -1,6 +1,6 @@
-import axios from 'axios/index';
+import axios from 'axios';
 import http from '../util/configs/http';
-import store from "../store";
+// import store from "../store";
 
 class UserList {
   getAll = count => axios.get(http.USERS, {

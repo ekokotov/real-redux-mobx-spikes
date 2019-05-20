@@ -1,6 +1,7 @@
-import axios from 'axios/index';
+import axios from 'axios';
 import http from '../util/configs/http';
 import jwtDecode from 'jwt-decode';
+
 const AUTH_TOKEN_PATH = 'auth_token';
 
 class Auth {
@@ -13,7 +14,7 @@ class Auth {
         return null;
     };
 
-    signup = async userData => {
+    signUp = async userData => {
         try {
             const res = await axios.post(http.SIGNUP, userData);
             return res.data;
